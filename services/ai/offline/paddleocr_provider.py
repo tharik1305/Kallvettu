@@ -56,10 +56,11 @@ class PaddleOCRProvider(BaseOCRProvider):
     MAX_IMAGE_DIM = 3200
     MIN_IMAGE_DIM = 10
 
-    def __init__(self, use_gpu: bool = False, model_name: Optional[str] = None):
+    def __init__(self, use_gpu: bool = False, model_name: Optional[str] = None, cpu_threads: int = 2):
         self._use_gpu = use_gpu
         self._model_name = model_name or self.PRIMARY_REC_MODEL
         self._det_model_name = self.PRIMARY_DET_MODEL
+        self._cpu_threads = max(1, min(int(cpu_threads), 4))
         
         # Lazy model instances
         self._det_engine: Optional[Any] = None
@@ -76,21 +77,47 @@ class PaddleOCRProvider(BaseOCRProvider):
         self._inspect_environment()
 
     def _inspect_environment(self) -> None:
-        """Inspects package installations, versions, and genuine CUDA capability."""
-        try:
-            import paddle
-            self._paddle_version = getattr(paddle, "__version__", "unknown")
-            try:
-                self._cuda_available = bool(paddle.device.is_compiled_with_cuda())
-            except Exception:
-                self._cuda_available = False
+        """
+        Inspects package installations and versions lazily via importlib metadata
+        (avoiding eager 40+ second C++ DLL loads on application startup).
+        """
+        import importlib.util
+        import importlib.metadata
+        import sys
 
-            import paddleocr
-            self._paddleocr_version = getattr(paddleocr, "__version__", "unknown")
-            self._is_pkg_installed = True
-        except ImportError as e:
+        if importlib.util.find_spec("paddle") is None:
             self._is_pkg_installed = False
-            self._init_error = f"PaddleOCR packages not installed: {e}"
+            self._init_error = "PaddlePaddle package is not installed."
+            return
+
+        if importlib.util.find_spec("paddleocr") is None:
+            self._is_pkg_installed = False
+            self._init_error = "PaddleOCR package is not installed."
+            return
+
+        try:
+            try:
+                self._paddle_version = importlib.metadata.version("paddlepaddle")
+            except Exception:
+                self._paddle_version = "installed"
+
+            try:
+                self._paddleocr_version = importlib.metadata.version("paddleocr")
+            except Exception:
+                self._paddleocr_version = "installed"
+
+            self._is_pkg_installed = True
+            # Check CUDA only if paddle is already loaded in sys.modules
+            if "paddle" in sys.modules:
+                try:
+                    self._cuda_available = bool(sys.modules["paddle"].device.is_compiled_with_cuda())
+                except Exception:
+                    self._cuda_available = False
+            else:
+                self._cuda_available = False
+        except Exception as e:
+            self._is_pkg_installed = False
+            self._init_error = f"PaddleOCR inspection error: {e}"
 
     @property
     def provider_name(self) -> str:
@@ -210,10 +237,17 @@ class PaddleOCRProvider(BaseOCRProvider):
             )
 
         try:
+            import paddle
+            try:
+                self._cuda_available = bool(paddle.device.is_compiled_with_cuda())
+                paddle.set_num_threads(self._cpu_threads)
+            except Exception:
+                pass
+
             from paddleocr import TextDetection, TextRecognition
 
             if self._det_engine is None:
-                logger.info("Initializing PaddleOCR TextDetection engine...")
+                logger.info("Initializing PaddleOCR TextDetection engine (threads=%d)...", self._cpu_threads)
                 self._det_engine = TextDetection()
 
             if self._rec_engine is None:
@@ -232,6 +266,11 @@ class PaddleOCRProvider(BaseOCRProvider):
         """Injects mock engine for unit testing without downloading model weights."""
         self._mock_engine = mock_engine
         self._is_pkg_installed = True
+
+    def release_models(self) -> None:
+        """Releases cached det/rec models to free RAM during sequential CPU routing."""
+        self._det_engine = None
+        self._rec_engine = None
 
     def _validate_and_prepare_image(
         self,

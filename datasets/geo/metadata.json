@@ -1,0 +1,1402 @@
+{
+  "dataset_name": "Kallvettu India Administrative Boundaries (States/UTs & Districts)",
+  "dataset_version": "2024.1-udit001-2884453",
+  "source_repository": "https://github.com/udit-001/india-maps-data",
+  "source_lineage": "Derived from open community India Census / Survey-aligned administrative boundaries (DataMeet lineage & post-2019 UT updates)",
+  "license_notice": "Open community geospatial dataset curated from publicly available sources; see SOURCE_README.md for source attribution and disclaimer.",
+  "generated_utc": "2026-11-12T16:48:54.724591+00:00",
+  "total_states_uts": 36,
+  "total_district_files": 36,
+  "files": {
+    "states_geojson": "india_states.geojson",
+    "all_districts_geojson": "india_all_districts.geojson",
+    "per_state_directory": "states/"
+  },
+  "states": [
+    {
+      "st_code": "35",
+      "st_nm": "Andaman and Nicobar Islands",
+      "state_file": "states/andaman-and-nicobar-islands.geojson",
+      "district_count": 3,
+      "districts": [
+        "Nicobars",
+        "North and Middle Andaman",
+        "South Andaman"
+      ],
+      "centroid": {
+        "lat": 11.30304,
+        "lon": 92.94987
+      },
+      "bounds": [
+        92.37794,
+        6.76637,
+        93.91477,
+        13.57416
+      ]
+    },
+    {
+      "st_code": "37",
+      "st_nm": "Andhra Pradesh",
+      "state_file": "states/andhra-pradesh.geojson",
+      "district_count": 26,
+      "districts": [
+        "Alluri Sitharama Raju",
+        "Anakapalli",
+        "Anantapuramu",
+        "Annamayya",
+        "Bapatla",
+        "Chittoor",
+        "East Godavari",
+        "Eluru",
+        "Guntur",
+        "Kakinada",
+        "Konaseema",
+        "Krishna",
+        "Kurnool",
+        "NTR",
+        "Nandyal",
+        "Palnadu",
+        "Parvathipuram Manyam",
+        "Prakasam",
+        "Sri Potti Sriramulu Nellore",
+        "Sri Sathya Sai",
+        "Srikakulam",
+        "Tirupati",
+        "Visakhapatnam",
+        "Vizianagaram",
+        "West Godavari",
+        "YSR"
+      ],
+      "centroid": {
+        "lat": 15.75635,
+        "lon": 79.96572
+      },
+      "bounds": [
+        76.76034,
+        12.62695,
+        84.76411,
+        19.11854
+      ]
+    },
+    {
+      "st_code": "12",
+      "st_nm": "Arunachal Pradesh",
+      "state_file": "states/arunachal-pradesh.geojson",
+      "district_count": 25,
+      "districts": [
+        "Anjaw",
+        "Changlang",
+        "East Kameng",
+        "East Siang",
+        "Kamle",
+        "Kra Daadi",
+        "Kurung Kumey",
+        "Lepa Rada",
+        "Lohit",
+        "Longding",
+        "Lower Dibang Valley",
+        "Lower Siang",
+        "Lower Subansiri",
+        "Namsai",
+        "Pakke Kessang",
+        "Papum Pare",
+        "Shi Yomi",
+        "Siang",
+        "Tawang",
+        "Tirap",
+        "Upper Dibang Valley",
+        "Upper Siang",
+        "Upper Subansiri",
+        "West Kameng",
+        "West Siang"
+      ],
+      "centroid": {
+        "lat": 28.03865,
+        "lon": 94.67328
+      },
+      "bounds": [
+        91.55982,
+        26.65082,
+        97.38756,
+        29.45944
+      ]
+    },
+    {
+      "st_code": "18",
+      "st_nm": "Assam",
+      "state_file": "states/assam.geojson",
+      "district_count": 33,
+      "districts": [
+        "Baksa",
+        "Barpeta",
+        "Biswanath",
+        "Bongaigaon",
+        "Cachar",
+        "Charaideo",
+        "Chirang",
+        "Darrang",
+        "Dhemaji",
+        "Dhubri",
+        "Dibrugarh",
+        "Dima Hasao",
+        "Goalpara",
+        "Golaghat",
+        "Hailakandi",
+        "Hojai",
+        "Jorhat",
+        "Kamrup",
+        "Kamrup Metropolitan",
+        "Karbi Anglong",
+        "Karimganj",
+        "Kokrajhar",
+        "Lakhimpur",
+        "Majuli",
+        "Morigaon",
+        "Nagaon",
+        "Nalbari",
+        "Sivasagar",
+        "Sonitpur",
+        "South Salmara Mankachar",
+        "Tinsukia",
+        "Udalguri",
+        "West Karbi Anglong"
+      ],
+      "centroid": {
+        "lat": 26.35662,
+        "lon": 92.82798
+      },
+      "bounds": [
+        89.70033,
+        24.15427,
+        96.01588,
+        27.97196
+      ]
+    },
+    {
+      "st_code": "10",
+      "st_nm": "Bihar",
+      "state_file": "states/bihar.geojson",
+      "district_count": 38,
+      "districts": [
+        "Araria",
+        "Arwal",
+        "Aurangabad",
+        "Banka",
+        "Begusarai",
+        "Bhagalpur",
+        "Bhojpur",
+        "Buxar",
+        "Darbhanga",
+        "East Champaran",
+        "Gaya",
+        "Gopalganj",
+        "Jamui",
+        "Jehanabad",
+        "Kaimur",
+        "Katihar",
+        "Khagaria",
+        "Kishanganj",
+        "Lakhisarai",
+        "Madhepura",
+        "Madhubani",
+        "Munger",
+        "Muzaffarpur",
+        "Nalanda",
+        "Nawada",
+        "Patna",
+        "Purnia",
+        "Rohtas",
+        "Saharsa",
+        "Samastipur",
+        "Saran",
+        "Sheikhpura",
+        "Sheohar",
+        "Sitamarhi",
+        "Siwan",
+        "Supaul",
+        "Vaishali",
+        "West Champaran"
+      ],
+      "centroid": {
+        "lat": 25.6794,
+        "lon": 85.60767
+      },
+      "bounds": [
+        83.34961,
+        24.28762,
+        88.27971,
+        27.51692
+      ]
+    },
+    {
+      "st_code": "04",
+      "st_nm": "Chandigarh",
+      "state_file": "states/chandigarh.geojson",
+      "district_count": 1,
+      "districts": [
+        "Chandigarh"
+      ],
+      "centroid": {
+        "lat": 30.72463,
+        "lon": 76.77936
+      },
+      "bounds": [
+        76.70988,
+        30.6816,
+        76.83833,
+        30.76134
+      ]
+    },
+    {
+      "st_code": "22",
+      "st_nm": "Chhattisgarh",
+      "state_file": "states/chhattisgarh.geojson",
+      "district_count": 27,
+      "districts": [
+        "Balod",
+        "Baloda Bazar",
+        "Balrampur",
+        "Bametara",
+        "Bastar",
+        "Bijapur",
+        "Bilaspur",
+        "Dakshin Bastar Dantewada",
+        "Dhamtari",
+        "Durg",
+        "Gariaband",
+        "Janjgir Champa",
+        "Jashpur",
+        "Kabeerdham",
+        "Kondagaon",
+        "Korba",
+        "Koriya",
+        "Mahasamund",
+        "Mungeli",
+        "Narayanpur",
+        "Raigarh",
+        "Raipur",
+        "Rajnandgaon",
+        "Sukma",
+        "Surajpur",
+        "Surguja",
+        "Uttar Bastar Kanker"
+      ],
+      "centroid": {
+        "lat": 21.26819,
+        "lon": 82.04235
+      },
+      "bounds": [
+        80.27136,
+        17.79465,
+        84.39711,
+        24.10203
+      ]
+    },
+    {
+      "st_code": "26",
+      "st_nm": "Dadra and Nagar Haveli and Daman and Diu",
+      "state_file": "states/dnh-and-dd.geojson",
+      "district_count": 3,
+      "districts": [
+        "Dadra and Nagar Haveli",
+        "Daman",
+        "Diu"
+      ],
+      "centroid": {
+        "lat": 20.23443,
+        "lon": 72.98113
+      },
+      "bounds": [
+        70.92037,
+        20.08637,
+        73.2111,
+        20.74213
+      ]
+    },
+    {
+      "st_code": "07",
+      "st_nm": "Delhi",
+      "state_file": "states/delhi.geojson",
+      "district_count": 1,
+      "districts": [
+        "Delhi"
+      ],
+      "centroid": {
+        "lat": 28.64507,
+        "lon": 77.11417
+      },
+      "bounds": [
+        76.84598,
+        28.40501,
+        77.34755,
+        28.85868
+      ]
+    },
+    {
+      "st_code": "30",
+      "st_nm": "Goa",
+      "state_file": "states/goa.geojson",
+      "district_count": 2,
+      "districts": [
+        "North Goa",
+        "South Goa"
+      ],
+      "centroid": {
+        "lat": 15.36369,
+        "lon": 74.05808
+      },
+      "bounds": [
+        73.68515,
+        14.90079,
+        74.32588,
+        15.75039
+      ]
+    },
+    {
+      "st_code": "24",
+      "st_nm": "Gujarat",
+      "state_file": "states/gujarat.geojson",
+      "district_count": 34,
+      "districts": [
+        "Ahmedabad",
+        "Amreli",
+        "Anand",
+        "Aravalli",
+        "Banaskantha",
+        "Bharuch",
+        "Bhavnagar",
+        "Botad",
+        "Chhota Udaipur",
+        "Dahod",
+        "Dang",
+        "Devbhumi Dwarka",
+        "Gandhinagar",
+        "Gir Somnath",
+        "Jamnagar",
+        "Junagadh",
+        "Kheda",
+        "Kutch",
+        "Mahisagar",
+        "Mehsana",
+        "Morbi",
+        "Narmada",
+        "Navsari",
+        "Panchmahal",
+        "Patan",
+        "Porbandar",
+        "Rajkot",
+        "Sabarkantha",
+        "Surat",
+        "Surendranagar",
+        "Tapi",
+        "Vadodara",
+        "Valsad",
+        "Vav-Tharad"
+      ],
+      "centroid": {
+        "lat": 22.70247,
+        "lon": 71.57218
+      },
+      "bounds": [
+        68.10055,
+        20.12074,
+        74.46503,
+        24.71243
+      ]
+    },
+    {
+      "st_code": "06",
+      "st_nm": "Haryana",
+      "state_file": "states/haryana.geojson",
+      "district_count": 22,
+      "districts": [
+        "Ambala",
+        "Bhiwani",
+        "Charkhi Dadri",
+        "Faridabad",
+        "Fatehabad",
+        "Gurugram",
+        "Hisar",
+        "Jhajjar",
+        "Jind",
+        "Kaithal",
+        "Karnal",
+        "Kurukshetra",
+        "Mahendragarh",
+        "Nuh",
+        "Palwal",
+        "Panchkula",
+        "Panipat",
+        "Rewari",
+        "Rohtak",
+        "Sirsa",
+        "Sonipat",
+        "Yamunanagar"
+      ],
+      "centroid": {
+        "lat": 29.19905,
+        "lon": 76.34498
+      },
+      "bounds": [
+        74.48032,
+        27.65439,
+        77.58305,
+        30.90431
+      ]
+    },
+    {
+      "st_code": "02",
+      "st_nm": "Himachal Pradesh",
+      "state_file": "states/himachal-pradesh.geojson",
+      "district_count": 12,
+      "districts": [
+        "Bilaspur",
+        "Chamba",
+        "Hamirpur",
+        "Kangra",
+        "Kinnaur",
+        "Kullu",
+        "Lahaul and Spiti",
+        "Mandi",
+        "Shimla",
+        "Sirmaur",
+        "Solan",
+        "Una"
+      ],
+      "centroid": {
+        "lat": 31.92628,
+        "lon": 77.2462
+      },
+      "bounds": [
+        75.59816,
+        30.37915,
+        79.00825,
+        33.25102
+      ]
+    },
+    {
+      "st_code": "01",
+      "st_nm": "Jammu and Kashmir",
+      "state_file": "states/jammu-and-kashmir.geojson",
+      "district_count": 22,
+      "districts": [
+        "Anantnag",
+        "Bandipora",
+        "Baramulla",
+        "Budgam",
+        "Doda",
+        "Ganderbal",
+        "Jammu",
+        "Kathua",
+        "Kishtwar",
+        "Kulgam",
+        "Kupwara",
+        "Mirpur",
+        "Muzaffarabad",
+        "Pulwama",
+        "Punch",
+        "Rajouri",
+        "Ramban",
+        "Reasi",
+        "Samba",
+        "Shopiyan",
+        "Srinagar",
+        "Udhampur"
+      ],
+      "centroid": {
+        "lat": 33.64503,
+        "lon": 74.85569
+      },
+      "bounds": [
+        73.39001,
+        32.30794,
+        76.77258,
+        35.10968
+      ]
+    },
+    {
+      "st_code": "20",
+      "st_nm": "Jharkhand",
+      "state_file": "states/jharkhand.geojson",
+      "district_count": 24,
+      "districts": [
+        "Bokaro",
+        "Chatra",
+        "Deoghar",
+        "Dhanbad",
+        "Dumka",
+        "East Singhbhum",
+        "Garhwa",
+        "Giridih",
+        "Godda",
+        "Gumla",
+        "Hazaribagh",
+        "Jamtara",
+        "Khunti",
+        "Koderma",
+        "Latehar",
+        "Lohardaga",
+        "Pakur",
+        "Palamu",
+        "Ramgarh",
+        "Ranchi",
+        "Sahibganj",
+        "Saraikela-Kharsawan",
+        "Simdega",
+        "West Singhbhum"
+      ],
+      "centroid": {
+        "lat": 23.65522,
+        "lon": 85.5553
+      },
+      "bounds": [
+        83.32973,
+        21.98353,
+        87.96011,
+        25.33106
+      ]
+    },
+    {
+      "st_code": "29",
+      "st_nm": "Karnataka",
+      "state_file": "states/karnataka.geojson",
+      "district_count": 30,
+      "districts": [
+        "Bagalkote",
+        "Ballari",
+        "Belagavi",
+        "Bengaluru Rural",
+        "Bengaluru Urban",
+        "Bidar",
+        "Chamarajanagara",
+        "Chikkaballapura",
+        "Chikkamagaluru",
+        "Chitradurga",
+        "Dakshina Kannada",
+        "Davanagere",
+        "Dharwad",
+        "Gadag",
+        "Hassan",
+        "Haveri",
+        "Kalaburagi",
+        "Kodagu",
+        "Kolar",
+        "Koppal",
+        "Mandya",
+        "Mysuru",
+        "Raichur",
+        "Ramanagara",
+        "Shivamogga",
+        "Tumakuru",
+        "Udupi",
+        "Uttara Kannada",
+        "Vijayapura",
+        "Yadgir"
+      ],
+      "centroid": {
+        "lat": 14.71098,
+        "lon": 76.16671
+      },
+      "bounds": [
+        74.08579,
+        11.59451,
+        78.58619,
+        18.44216
+      ]
+    },
+    {
+      "st_code": "32",
+      "st_nm": "Kerala",
+      "state_file": "states/kerala.geojson",
+      "district_count": 14,
+      "districts": [
+        "Alappuzha",
+        "Ernakulam",
+        "Idukki",
+        "Kannur",
+        "Kasaragod",
+        "Kollam",
+        "Kottayam",
+        "Kozhikode",
+        "Malappuram",
+        "Palakkad",
+        "Pathanamthitta",
+        "Thiruvananthapuram",
+        "Thrissur",
+        "Wayanad"
+      ],
+      "centroid": {
+        "lat": 10.4524,
+        "lon": 76.40851
+      },
+      "bounds": [
+        74.86874,
+        8.29235,
+        77.4026,
+        12.75893
+      ]
+    },
+    {
+      "st_code": "38",
+      "st_nm": "Ladakh",
+      "state_file": "states/ladakh.geojson",
+      "district_count": 2,
+      "districts": [
+        "Kargil",
+        "Leh"
+      ],
+      "centroid": {
+        "lat": 34.94494,
+        "lon": 76.77897
+      },
+      "bounds": [
+        72.53061,
+        32.33818,
+        80.32641,
+        37.07696
+      ]
+    },
+    {
+      "st_code": "31",
+      "st_nm": "Lakshadweep",
+      "state_file": "states/lakshadweep.geojson",
+      "district_count": 1,
+      "districts": [
+        "Lakshadweep"
+      ],
+      "centroid": {
+        "lat": 8.27081,
+        "lon": 73.0383
+      },
+      "bounds": [
+        73.01842,
+        8.26348,
+        73.05359,
+        8.27585
+      ]
+    },
+    {
+      "st_code": "23",
+      "st_nm": "Madhya Pradesh",
+      "state_file": "states/madhya-pradesh.geojson",
+      "district_count": 52,
+      "districts": [
+        "Agar Malwa",
+        "Alirajpur",
+        "Anuppur",
+        "Ashoknagar",
+        "Balaghat",
+        "Barwani",
+        "Betul",
+        "Bhind",
+        "Bhopal",
+        "Burhanpur",
+        "Chhatarpur",
+        "Chhindwara",
+        "Damoh",
+        "Datia",
+        "Dewas",
+        "Dhar",
+        "Dindori",
+        "Guna",
+        "Gwalior",
+        "Harda",
+        "Hoshangabad",
+        "Indore",
+        "Jabalpur",
+        "Jhabua",
+        "Katni",
+        "Khandwa",
+        "Khargone",
+        "Mandla",
+        "Mandsaur",
+        "Morena",
+        "Narsinghpur",
+        "Neemuch",
+        "Niwari",
+        "Panna",
+        "Raisen",
+        "Rajgarh",
+        "Ratlam",
+        "Rewa",
+        "Sagar",
+        "Satna",
+        "Sehore",
+        "Seoni",
+        "Shahdol",
+        "Shajapur",
+        "Sheopur",
+        "Shivpuri",
+        "Sidhi",
+        "Singrauli",
+        "Tikamgarh",
+        "Ujjain",
+        "Umaria",
+        "Vidisha"
+      ],
+      "centroid": {
+        "lat": 23.53928,
+        "lon": 78.29112
+      },
+      "bounds": [
+        74.05368,
+        21.07619,
+        82.81287,
+        26.86941
+      ]
+    },
+    {
+      "st_code": "27",
+      "st_nm": "Maharashtra",
+      "state_file": "states/maharashtra.geojson",
+      "district_count": 35,
+      "districts": [
+        "Ahmednagar",
+        "Akola",
+        "Amravati",
+        "Aurangabad",
+        "Beed",
+        "Bhandara",
+        "Buldhana",
+        "Chandrapur",
+        "Dhule",
+        "Gadchiroli",
+        "Gondia",
+        "Hingoli",
+        "Jalgaon",
+        "Jalna",
+        "Kolhapur",
+        "Latur",
+        "Mumbai",
+        "Nagpur",
+        "Nanded",
+        "Nandurbar",
+        "Nashik",
+        "Osmanabad",
+        "Palghar",
+        "Parbhani",
+        "Pune",
+        "Raigad",
+        "Ratnagiri",
+        "Sangli",
+        "Satara",
+        "Sindhudurg",
+        "Solapur",
+        "Thane",
+        "Wardha",
+        "Washim",
+        "Yavatmal"
+      ],
+      "centroid": {
+        "lat": 19.45471,
+        "lon": 76.1099
+      },
+      "bounds": [
+        72.65447,
+        15.61154,
+        80.89527,
+        22.03027
+      ]
+    },
+    {
+      "st_code": "14",
+      "st_nm": "Manipur",
+      "state_file": "states/manipur.geojson",
+      "district_count": 16,
+      "districts": [
+        "Bishnupur",
+        "Chandel",
+        "Churachandpur",
+        "Imphal East",
+        "Imphal West",
+        "Jiribam",
+        "Kakching",
+        "Kamjong",
+        "Kangpokpi",
+        "Noney",
+        "Pherzawl",
+        "Senapati",
+        "Tamenglong",
+        "Tengnoupal",
+        "Thoubal",
+        "Ukhrul"
+      ],
+      "centroid": {
+        "lat": 24.73047,
+        "lon": 93.87295
+      },
+      "bounds": [
+        92.97585,
+        23.8477,
+        94.74359,
+        25.60463
+      ]
+    },
+    {
+      "st_code": "17",
+      "st_nm": "Meghalaya",
+      "state_file": "states/meghalaya.geojson",
+      "district_count": 11,
+      "districts": [
+        "East Garo Hills",
+        "East Jaintia Hills",
+        "East Khasi Hills",
+        "North Garo Hills",
+        "Ribhoi",
+        "South Garo Hills",
+        "South West Garo Hills",
+        "South West Khasi Hills",
+        "West Garo Hills",
+        "West Jaintia Hills",
+        "West Khasi Hills"
+      ],
+      "centroid": {
+        "lat": 25.53873,
+        "lon": 91.27624
+      },
+      "bounds": [
+        89.81502,
+        25.02999,
+        92.79235,
+        26.11879
+      ]
+    },
+    {
+      "st_code": "15",
+      "st_nm": "Mizoram",
+      "state_file": "states/mizoram.geojson",
+      "district_count": 10,
+      "districts": [
+        "Aizawl",
+        "Champhai",
+        "Hnahthial",
+        "Khawzawl",
+        "Kolasib",
+        "Lawngtlai",
+        "Lunglei",
+        "Mamit",
+        "Saiha",
+        "Serchhip"
+      ],
+      "centroid": {
+        "lat": 23.31272,
+        "lon": 92.83183
+      },
+      "bounds": [
+        92.25713,
+        22.01102,
+        93.42696,
+        24.51308
+      ]
+    },
+    {
+      "st_code": "13",
+      "st_nm": "Nagaland",
+      "state_file": "states/nagaland.geojson",
+      "district_count": 11,
+      "districts": [
+        "Dimapur",
+        "Kiphire",
+        "Kohima",
+        "Longleng",
+        "Mokokchung",
+        "Mon",
+        "Peren",
+        "Phek",
+        "Tuensang",
+        "Wokha",
+        "Zunheboto"
+      ],
+      "centroid": {
+        "lat": 26.06084,
+        "lon": 94.46564
+      },
+      "bounds": [
+        93.32909,
+        25.19908,
+        95.23446,
+        27.03438
+      ]
+    },
+    {
+      "st_code": "21",
+      "st_nm": "Odisha",
+      "state_file": "states/odisha.geojson",
+      "district_count": 30,
+      "districts": [
+        "Angul",
+        "Balangir",
+        "Balasore",
+        "Bargarh",
+        "Bhadrak",
+        "Boudh",
+        "Cuttack",
+        "Deogarh",
+        "Dhenkanal",
+        "Gajapati",
+        "Ganjam",
+        "Jagatsinghpur",
+        "Jajpur",
+        "Jharsuguda",
+        "Kalahandi",
+        "Kandhamal",
+        "Kendrapara",
+        "Kendujhar",
+        "Khordha",
+        "Koraput",
+        "Malkangiri",
+        "Mayurbhanj",
+        "Nabarangapur",
+        "Nayagarh",
+        "Nuapada",
+        "Puri",
+        "Rayagada",
+        "Sambalpur",
+        "Subarnapur",
+        "Sundargarh"
+      ],
+      "centroid": {
+        "lat": 20.51248,
+        "lon": 84.43022
+      },
+      "bounds": [
+        81.39684,
+        17.81802,
+        87.48454,
+        22.5568
+      ]
+    },
+    {
+      "st_code": "34",
+      "st_nm": "Puducherry",
+      "state_file": "states/puducherry.geojson",
+      "district_count": 4,
+      "districts": [
+        "Karaikal",
+        "Mahe",
+        "Puducherry",
+        "Yanam"
+      ],
+      "centroid": {
+        "lat": 11.64917,
+        "lon": 79.88237
+      },
+      "bounds": [
+        75.53699,
+        10.8274,
+        82.27001,
+        16.73747
+      ]
+    },
+    {
+      "st_code": "03",
+      "st_nm": "Punjab",
+      "state_file": "states/punjab.geojson",
+      "district_count": 22,
+      "districts": [
+        "Amritsar",
+        "Barnala",
+        "Bathinda",
+        "Faridkot",
+        "Fatehgarh Sahib",
+        "Fazilka",
+        "Ferozepur",
+        "Gurdaspur",
+        "Hoshiarpur",
+        "Jalandhar",
+        "Kapurthala",
+        "Ludhiana",
+        "Mansa",
+        "Moga",
+        "Pathankot",
+        "Patiala",
+        "Rupnagar",
+        "S.A.S. Nagar",
+        "Sangrur",
+        "Shahid Bhagat Singh Nagar",
+        "Sri Muktsar Sahib",
+        "Tarn Taran"
+      ],
+      "centroid": {
+        "lat": 30.84307,
+        "lon": 75.41671
+      },
+      "bounds": [
+        73.87935,
+        29.5598,
+        76.9255,
+        32.5114
+      ]
+    },
+    {
+      "st_code": "08",
+      "st_nm": "Rajasthan",
+      "state_file": "states/rajasthan.geojson",
+      "district_count": 33,
+      "districts": [
+        "Ajmer",
+        "Alwar",
+        "Banswara",
+        "Baran",
+        "Barmer",
+        "Bharatpur",
+        "Bhilwara",
+        "Bikaner",
+        "Bundi",
+        "Chittorgarh",
+        "Churu",
+        "Dausa",
+        "Dholpur",
+        "Dungarpur",
+        "Ganganagar",
+        "Hanumangarh",
+        "Jaipur",
+        "Jaisalmer",
+        "Jalore",
+        "Jhalawar",
+        "Jhunjhunu",
+        "Jodhpur",
+        "Karauli",
+        "Kota",
+        "Nagaur",
+        "Pali",
+        "Pratapgarh",
+        "Rajsamand",
+        "Sawai Madhopur",
+        "Sikar",
+        "Sirohi",
+        "Tonk",
+        "Udaipur"
+      ],
+      "centroid": {
+        "lat": 26.58413,
+        "lon": 73.85096
+      },
+      "bounds": [
+        69.48447,
+        23.05996,
+        78.27118,
+        30.19356
+      ]
+    },
+    {
+      "st_code": "11",
+      "st_nm": "Sikkim",
+      "state_file": "states/sikkim.geojson",
+      "district_count": 4,
+      "districts": [
+        "East Sikkim",
+        "North Sikkim",
+        "South Sikkim",
+        "West Sikkim"
+      ],
+      "centroid": {
+        "lat": 27.56526,
+        "lon": 88.47401
+      },
+      "bounds": [
+        88.0381,
+        27.0715,
+        88.91891,
+        28.09844
+      ]
+    },
+    {
+      "st_code": "33",
+      "st_nm": "Tamil Nadu",
+      "state_file": "states/tamil-nadu.geojson",
+      "district_count": 37,
+      "districts": [
+        "Ariyalur",
+        "Chengalpattu",
+        "Chennai",
+        "Coimbatore",
+        "Cuddalore",
+        "Dharmapuri",
+        "Dindigul",
+        "Erode",
+        "Kallakurichi",
+        "Kancheepuram",
+        "Kanyakumari",
+        "Karur",
+        "Krishnagiri",
+        "Madurai",
+        "Nagapattinam",
+        "Namakkal",
+        "Nilgiris",
+        "Perambalur",
+        "Pudukkottai",
+        "Ramanathapuram",
+        "Ranipet",
+        "Salem",
+        "Sivaganga",
+        "Tenkasi",
+        "Thanjavur",
+        "Theni",
+        "Thiruvallur",
+        "Thiruvarur",
+        "Thoothukkudi",
+        "Tiruchirappalli",
+        "Tirunelveli",
+        "Tirupathur",
+        "Tiruppur",
+        "Tiruvannamalai",
+        "Vellore",
+        "Viluppuram",
+        "Virudhunagar"
+      ],
+      "centroid": {
+        "lat": 11.01507,
+        "lon": 78.40918
+      },
+      "bounds": [
+        76.2343,
+        8.07651,
+        80.34476,
+        13.56453
+      ]
+    },
+    {
+      "st_code": "36",
+      "st_nm": "Telangana",
+      "state_file": "states/telangana.geojson",
+      "district_count": 33,
+      "districts": [
+        "Adilabad",
+        "Bhadradri Kothagudem",
+        "Hyderabad",
+        "Jagtial",
+        "Jangaon",
+        "Jayashankar Bhupalapally",
+        "Jogulamba Gadwal",
+        "Kamareddy",
+        "Karimnagar",
+        "Khammam",
+        "Komaram Bheem",
+        "Mahabubabad",
+        "Mahabubnagar",
+        "Mancherial",
+        "Medak",
+        "Medchal Malkajgiri",
+        "Mulugu",
+        "Nagarkurnool",
+        "Nalgonda",
+        "Narayanpet",
+        "Nirmal",
+        "Nizamabad",
+        "Peddapalli",
+        "Rajanna Sircilla",
+        "Ranga Reddy",
+        "Sangareddy",
+        "Siddipet",
+        "Suryapet",
+        "Vikarabad",
+        "Wanaparthy",
+        "Warangal Rural",
+        "Warangal Urban",
+        "Yadadri Bhuvanagiri"
+      ],
+      "centroid": {
+        "lat": 17.80079,
+        "lon": 79.00807
+      },
+      "bounds": [
+        77.24204,
+        15.84113,
+        81.30968,
+        19.91177
+      ]
+    },
+    {
+      "st_code": "16",
+      "st_nm": "Tripura",
+      "state_file": "states/tripura.geojson",
+      "district_count": 8,
+      "districts": [
+        "Dhalai",
+        "Gomati",
+        "Khowai",
+        "North Tripura",
+        "Sipahijala",
+        "South Tripura",
+        "Unokoti",
+        "West Tripura"
+      ],
+      "centroid": {
+        "lat": 23.75436,
+        "lon": 91.74765
+      },
+      "bounds": [
+        91.15612,
+        22.9651,
+        92.33053,
+        24.52545
+      ]
+    },
+    {
+      "st_code": "09",
+      "st_nm": "Uttar Pradesh",
+      "state_file": "states/uttar-pradesh.geojson",
+      "district_count": 75,
+      "districts": [
+        "Agra",
+        "Aligarh",
+        "Ambedkar Nagar",
+        "Amethi",
+        "Amroha",
+        "Auraiya",
+        "Ayodhya",
+        "Azamgarh",
+        "Baghpat",
+        "Bahraich",
+        "Ballia",
+        "Balrampur",
+        "Banda",
+        "Barabanki",
+        "Bareilly",
+        "Basti",
+        "Bhadohi",
+        "Bijnor",
+        "Budaun",
+        "Bulandshahr",
+        "Chandauli",
+        "Chitrakoot",
+        "Deoria",
+        "Etah",
+        "Etawah",
+        "Farrukhabad",
+        "Fatehpur",
+        "Firozabad",
+        "Gautam Buddha Nagar",
+        "Ghaziabad",
+        "Ghazipur",
+        "Gonda",
+        "Gorakhpur",
+        "Hamirpur",
+        "Hapur",
+        "Hardoi",
+        "Hathras",
+        "Jalaun",
+        "Jaunpur",
+        "Jhansi",
+        "Kannauj",
+        "Kanpur Dehat",
+        "Kanpur Nagar",
+        "Kasganj",
+        "Kaushambi",
+        "Kushinagar",
+        "Lakhimpur Kheri",
+        "Lalitpur",
+        "Lucknow",
+        "Maharajganj",
+        "Mahoba",
+        "Mainpuri",
+        "Mathura",
+        "Mau",
+        "Meerut",
+        "Mirzapur",
+        "Moradabad",
+        "Muzaffarnagar",
+        "Pilibhit",
+        "Pratapgarh",
+        "Prayagraj",
+        "Rae Bareli",
+        "Rampur",
+        "Saharanpur",
+        "Sambhal",
+        "Sant Kabir Nagar",
+        "Shahjahanpur",
+        "Shamli",
+        "Shrawasti",
+        "Siddharthnagar",
+        "Sitapur",
+        "Sonbhadra",
+        "Sultanpur",
+        "Unnao",
+        "Varanasi"
+      ],
+      "centroid": {
+        "lat": 26.9245,
+        "lon": 80.56627
+      },
+      "bounds": [
+        77.10594,
+        23.87107,
+        84.62496,
+        30.40115
+      ]
+    },
+    {
+      "st_code": "05",
+      "st_nm": "Uttarakhand",
+      "state_file": "states/uttarakhand.geojson",
+      "district_count": 13,
+      "districts": [
+        "Almora",
+        "Bageshwar",
+        "Chamoli",
+        "Champawat",
+        "Dehradun",
+        "Haridwar",
+        "Nainital",
+        "Pauri Garhwal",
+        "Pithoragarh",
+        "Rudraprayag",
+        "Tehri Garhwal",
+        "Udham Singh Nagar",
+        "Uttarkashi"
+      ],
+      "centroid": {
+        "lat": 30.1575,
+        "lon": 79.21139
+      },
+      "bounds": [
+        77.5754,
+        28.72258,
+        81.04513,
+        31.45559
+      ]
+    },
+    {
+      "st_code": "19",
+      "st_nm": "West Bengal",
+      "state_file": "states/west-bengal.geojson",
+      "district_count": 23,
+      "districts": [
+        "Alipurduar",
+        "Bankura",
+        "Birbhum",
+        "Cooch Behar",
+        "Dakshin Dinajpur",
+        "Darjeeling",
+        "Hooghly",
+        "Howrah",
+        "Jalpaiguri",
+        "Jhargram",
+        "Kalimpong",
+        "Kolkata",
+        "Malda",
+        "Murshidabad",
+        "Nadia",
+        "North 24 Parganas",
+        "Paschim Bardhaman",
+        "Paschim Medinipur",
+        "Purba Bardhaman",
+        "Purba Medinipur",
+        "Purulia",
+        "South 24 Parganas",
+        "Uttar Dinajpur"
+      ],
+      "centroid": {
+        "lat": 23.83702,
+        "lon": 87.9699
+      },
+      "bounds": [
+        85.81925,
+        21.55598,
+        89.87007,
+        27.21997
+      ]
+    }
+  ]
+}

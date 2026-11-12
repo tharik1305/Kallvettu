@@ -122,9 +122,10 @@ class ProviderManager:
             "sarvam_vision": "Document OCR",
             "paddleocr_local": "Local OCR",
             "custom_historical_ocr": "Historical Script OCR",
+            "historical_hog_svm": "Historical HOG+SVM OCR (CPU)",
         }
 
-        # Fixed display ordering of the 8 official providers
+        # Fixed display ordering of registered providers
         ordered_pids = [
             "local_catalog_ocr",
             "gemini_vision",
@@ -134,6 +135,7 @@ class ProviderManager:
             "sarvam_vision",
             "paddleocr_local",
             "custom_historical_ocr",
+            "historical_hog_svm",
         ]
 
         for pid in ordered_pids:
@@ -149,6 +151,10 @@ class ProviderManager:
                 cfg_display = "YES"
                 en_display = "Active" if is_en else "Disabled"
                 status_display = "Available"
+            elif pid == "historical_hog_svm":
+                cfg_display = "YES" if is_cfg else "NO"
+                en_display = "Active" if (is_en and is_cfg) else "Disabled"
+                status_display = "Available (CPU)" if is_cfg else "Model not trained"
             elif pid == "paddleocr_local":
                 # Detailed PaddleOCR runtime diagnosis
                 if hasattr(provider, "get_runtime_status"):
@@ -341,6 +347,12 @@ def get_provider_manager() -> ProviderManager:
             mgr.register_provider(CustomHistoricalOCRProvider())
         except Exception as e:
             logger.debug("CustomHistoricalOCRProvider registration skipped: %s", e)
+
+        try:
+            from services.ai.historical.inference import HistoricalHOGSVMProvider
+            mgr.register_provider(HistoricalHOGSVMProvider())
+        except Exception as e:
+            logger.debug("HistoricalHOGSVMProvider registration skipped: %s", e)
 
         _GLOBAL_PROVIDER_MANAGER = mgr
     return _GLOBAL_PROVIDER_MANAGER

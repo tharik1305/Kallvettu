@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kallvettu India Epigraphical Map</title>
+  <!-- MapLibre GL JS Open-Source Vector Map Library -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #0e1217;
+      color: #f1f2f3;
+    }
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floating Toolbar */
+    .map-toolbar {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      background: rgba(17, 21, 28, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 161, 90, 0.35);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    }
+    .toolbar-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #c5a15a;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .style-pill, .control-btn {
+      background: #1e2530;
+      color: #c5ced9;
+      border: 1px solid #2d3848;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .style-pill:hover, .control-btn:hover {
+      background: #2a3444;
+      color: #ffffff;
+      border-color: #c5a15a;
+    }
+    .style-pill.active {
+      background: linear-gradient(135deg, #c5a15a, #9c7d40);
+      color: #0e1217;
+      border-color: #e5b842;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(197, 161, 90, 0.4);
+    }
+    .divider {
+      width: 1px;
+      height: 20px;
+      background: #2d3848;
+      margin: 0 4px;
+    }
+
+    /* Map Legend Overlay */
+    .map-legend {
+      position: absolute;
+      bottom: 26px;
+      left: 14px;
+      z-index: 10;
+      background: rgba(17, 21, 28, 0.94);
+      backdrop-filter: blur(8px);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 161, 90, 0.3);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+      font-size: 0.75rem;
+      color: #a8b0ba;
+      max-width: 320px;
+      line-height: 1.45;
+    }
+    .legend-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #f1f2f3;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .legend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 10px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-color {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.5);
+    }
+    .legend-note {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px solid #252d38;
+      font-size: 0.70rem;
+      color: #7e8691;
+    }
+
+    /* Interactive Popup */
+    .maplibregl-popup-content {
+      background: #141922 !important;
+      color: #f1f2f3 !important;
+      border: 1px solid #c5a15a !important;
+      border-radius: 8px !important;
+      padding: 14px !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65) !important;
+      max-width: 330px !important;
+      font-family: inherit;
+    }
+    .maplibregl-popup-tip {
+      border-top-color: #c5a15a !important;
+    }
+    .maplibregl-popup-close-button {
+      color: #a8b0ba !important;
+      font-size: 16px !important;
+      padding: 4px 8px !important;
+    }
+    .maplibregl-popup-close-button:hover {
+      color: #ffffff !important;
+      background: transparent !important;
+    }
+    .popup-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f1f2f3;
+      margin-bottom: 2px;
+    }
+    .popup-ta-title {
+      font-family: "Noto Sans Tamil", sans-serif;
+      font-size: 0.85rem;
+      color: #c5a15a;
+      margin-bottom: 8px;
+    }
+    .popup-meta {
+      font-size: 0.78rem;
+      color: #a8b0ba;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .popup-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.70rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .badge-brahmi { background: rgba(241, 196, 15, 0.2); color: #f1c40f; border: 1px solid #f1c40f; }
+    .badge-vatteluttu { background: rgba(230, 126, 34, 0.2); color: #e67e22; border: 1px solid #e67e22; }
+    .badge-grantha { background: rgba(155, 89, 182, 0.2); color: #9b59b6; border: 1px solid #9b59b6; }
+    .badge-chola { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+    .badge-default { background: rgba(197, 161, 90, 0.2); color: #c5a15a; border: 1px solid #c5a15a; }
+
+    .popup-btn {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #c5a15a, #9c7d40);
+      color: #0e1217;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 0.18s ease;
+      margin-top: 6px;
+    }
+    .popup-btn:hover {
+      opacity: 0.92;
+    }
+
+    /* District Hover Tooltip */
+    .district-tooltip {
+      position: absolute;
+      z-index: 20;
+      pointer-events: none;
+      background: rgba(14, 18, 23, 0.95);
+      border: 1px solid #c5a15a;
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: #f1f2f3;
+      font-size: 0.76rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      display: none;
+      transform: translate(-50%, -125%);
+    }
+
+    /* Attribution Bar */
+    .custom-attribution {
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      z-index: 5;
+      font-size: 0.68rem;
+      color: #6b7280;
+      background: rgba(14, 18, 23, 0.75);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .custom-attribution a {
+      color: #9ca3af;
+      text-decoration: none;
+    }
+    .custom-attribution a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Floating Navigation & Style Switcher Toolbar -->
+  <div class="map-toolbar">
+    <span class="toolbar-label">Basemap:</span>
+    <button class="style-pill active" id="btn-liberty" onclick="switchMapStyle('liberty')">🗽 Liberty</button>
+    <button class="style-pill" id="btn-bright" onclick="switchMapStyle('bright')">☀️ Bright</button>
+    <button class="style-pill" id="btn-positron" onclick="switchMapStyle('positron')">⚪ Positron</button>
+    <button class="style-pill" id="btn-dark" onclick="switchMapStyle('dark')">🌙 Dark</button>
+
+    <div class="divider"></div>
+
+    <button class="control-btn" id="btn-reset-india" onclick="resetIndiaView()">🇮🇳 Reset India</button>
+    <button class="control-btn" id="btn-toggle-cluster" onclick="toggleClustering()">◉ Clusters: ON</button>
+  </div>
+
+  <!-- Map Legend -->
+  <div class="map-legend">
+    <div class="legend-title">
+      <span>Epigraphical Scripts & Markers</span>
+      <span style="font-size: 0.70rem; color: #c5a15a;">K-Atlas</span>
+    </div>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="legend-color" style="background:#f1c40f;"></span><span>Tamil-Brahmi</span></div>
+      <div class="legend-item"><span class="legend-color" style="background:#e67e22;"></span><span>Vatteluttu</span></div>
+      <div class="legend-item"><span class="legend-color" style="background:#9b59b6;"></span><span>Grantha</span></div>
+      <div class="legend-item"><span class="legend-color" style="background:#2ecc71;"></span><span>Chola Tamil</span></div>
+      <div class="legend-item"><span class="legend-color" style="background:#c5a15a;"></span><span>Verified Site</span></div>
+      <div class="legend-item"><span class="legend-color" style="background:#b22222;"></span><span>Cluster (>15)</span></div>
+    </div>
+    <div class="legend-note">
+      District boundaries reflect inscriptional counts. District-only records contribute to choropleth shading without fabricated site markers.
+    </div>
+  </div>
+
+  <div id="district-tooltip" class="district-tooltip"></div>
+
+  <div class="custom-attribution">
+    © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors |
+    Tiles: <a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> (MapLibre GL) |
+    Boundaries: BharatMaps / LGD
+  </div>
+
+  <script>
+    // OpenFreeMap vector tile style endpoints (Zero API keys required!)
+    const OPENFREEMAP_STYLES = {
+      liberty: "https://tiles.openfreemap.org/styles/liberty",
+      bright: "https://tiles.openfreemap.org/styles/bright",
+      positron: "https://tiles.openfreemap.org/styles/positron",
+      dark: "https://tiles.openfreemap.org/styles/dark"
+    };
+
+    let currentStyleKey = "liberty";
+    let map = null;
+    let isClusteringEnabled = true;
+    let latestArgs = null;
+    let activePopup = null;
+    let markerLayerHovered = false;
+
+    // Streamlit Component Messaging Helper
+    function sendValue(val) {
+      window.parent.postMessage({
+        isStreamlitMessage: true,
+        type: "streamlit:setComponentValue",
+        value: val
+      }, "*");
+    }
+
+    function setFrameHeight(height) {
+      window.parent.postMessage({
+        isStreamlitMessage: true,
+        type: "streamlit:setFrameHeight",
+        height: height
+      }, "*");
+    }
+
+    function selectInscription(id, state, district) {
+      sendValue({
+        event_type: "inscription_select",
+        inscription_id: id,
+        state: state || "",
+        district: district || "",
+        timestamp: Date.now()
+      });
+      if (activePopup) {
+        activePopup.remove();
+      }
+    }
+
+    function resetIndiaView() {
+      if (map) {
+        map.flyTo({
+          center: [79.2, 21.8],
+          zoom: 4.15,
+          pitch: 0,
+          bearing: 0,
+          essential: true
+        });
+      }
+      sendValue({
+        event_type: "reset_view",
+        timestamp: Date.now()
+      });
+    }
+
+    function toggleClustering() {
+      isClusteringEnabled = !isClusteringEnabled;
+      const btn = document.getElementById("btn-toggle-cluster");
+      btn.textContent = isClusteringEnabled ? "◉ Clusters: ON" : "○ Clusters: OFF";
+      if (latestArgs && latestArgs.markers_geojson) {
+        updateMarkersLayer(latestArgs.markers_geojson);
+      }
+    }
+
+    function switchMapStyle(styleKey) {
+      if (!OPENFREEMAP_STYLES[styleKey] || styleKey === currentStyleKey) return;
+      currentStyleKey = styleKey;
+
+      // Update UI button highlights
+      document.querySelectorAll(".style-pill").forEach(el => el.classList.remove("active"));
+      const activeBtn = document.getElementById(`btn-${styleKey}`);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      if (map) {
+        map.setStyle(OPENFREEMAP_STYLES[styleKey]);
+        map.once("style.load", () => {
+          if (latestArgs) {
+            setupDataSourcesAndLayers(latestArgs);
+          }
+        });
+      }
+
+      sendValue({
+        event_type: "style_change",
+        style: styleKey,
+        timestamp: Date.now()
+      });
+    }
+
+    function setupDataSourcesAndLayers(args) {
+      if (!map) return;
+
+      // 1. States GeoJSON Boundary Layer
+      if (args.states_geojson && args.states_geojson.features) {
+        if (!map.getSource("states-source")) {
+          map.addSource("states-source", {
+            type: "geojson",
+            data: args.states_geojson
+          });
+
+          map.addLayer({
+            id: "states-fill",
+            type: "fill",
+            source: "states-source",
+            paint: {
+              "fill-color": "#11151c",
+              "fill-opacity": 0.08
+            }
+          });
+
+          map.addLayer({
+            id: "states-line",
+            type: "line",
+            source: "states-source",
+            paint: {
+              "line-color": "#8c9ba5",
+              "line-width": 1.4,
+              "line-opacity": 0.65
+            }
+          });
+        } else {
+          map.getSource("states-source").setData(args.states_geojson);
+        }
+      }
+
+      // 2. Districts GeoJSON Boundary & Choropleth Layer
+      if (args.districts_geojson && args.districts_geojson.features) {
+        if (!map.getSource("districts-source")) {
+          map.addSource("districts-source", {
+            type: "geojson",
+            data: args.districts_geojson
+          });
+
+          map.addLayer({
+            id: "districts-fill",
+            type: "fill",
+            source: "districts-source",
+            paint: {
+              "fill-color": [
+                "case",
+                ["boolean", ["get", "is_selected"], false],
+                "#c5a15a",
+                [">", ["get", "count"], 5],
+                "#c5a15a",
+                [">", ["get", "count"], 2],
+                "#8c6b2d",
+                [">", ["get", "count"], 0],
+                "#4a391a",
+                "#171d24"
+              ],
+              "fill-opacity": [
+                "case",
+                ["boolean", ["get", "is_selected"], false],
+                0.45,
+                [">", ["get", "count"], 0],
+                0.35,
+                0.08
+              ]
+            }
+          });
+
+          map.addLayer({
+            id: "districts-line",
+            type: "line",
+            source: "districts-source",
+            paint: {
+              "line-color": [
+                "case",
+                ["boolean", ["get", "is_selected"], false],
+                "#f1c40f",
+                "#d4af37"
+              ],
+              "line-width": [
+                "case",
+                ["boolean", ["get", "is_selected"], false],
+                2.2,
+                0.9
+              ],
+              "line-opacity": 0.65
+            }
+          });
+        } else {
+          map.getSource("districts-source").setData(args.districts_geojson);
+        }
+      }
+
+      // 3. Inscription Markers with Clustering
+      if (args.markers_geojson) {
+        updateMarkersLayer(args.markers_geojson);
+      }
+
+      // Set up click & hover listeners once
+      attachInteractiveListeners();
+    }
+
+    function updateMarkersLayer(markersGeojson) {
+      if (!map) return;
+
+      // Remove existing marker layers if present to safely toggle clustering
+      ["cluster-count", "clusters", "unclustered-point", "unclustered-label"].forEach(id => {
+        if (map.getLayer(id)) map.removeLayer(id);
+      });
+      if (map.getSource("inscriptions-source")) {
+        map.removeSource("inscriptions-source");
+      }
+
+      map.addSource("inscriptions-source", {
+        type: "geojson",
+        data: markersGeojson,
+        cluster: isClusteringEnabled,
+        clusterMaxZoom: 14,
+        clusterRadius: 50
+      });
+
+      if (isClusteringEnabled) {
+        // Cluster circles
+        map.addLayer({
+          id: "clusters",
+          type: "circle",
+          source: "inscriptions-source",
+          filter: ["has", "point_count"],
+          paint: {
+            "circle-color": [
+              "step",
+              ["get", "point_count"],
+              "#d4af37",
+              5, "#c5a15a",
+              15, "#b22222"
+            ],
+            "circle-radius": [
+              "step",
+              ["get", "point_count"],
+              18,
+              5, 23,
+              15, 28
+            ],
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#11151c"
+          }
+        });
+
+        // Cluster count text
+        map.addLayer({
+          id: "cluster-count",
+          type: "symbol",
+          source: "inscriptions-source",
+          filter: ["has", "point_count"],
+          layout: {
+            "text-field": "{point_count_abbreviated}",
+            "text-size": 12,
+            "text-font": ["Noto Sans Bold", "Arial Unicode MS Bold"]
+          },
+          paint: {
+            "text-color": "#ffffff"
+          }
+        });
+      }
+
+      // Unclustered individual inscription points
+      map.addLayer({
+        id: "unclustered-point",
+        type: "circle",
+        source: "inscriptions-source",
+        filter: isClusteringEnabled ? ["!", ["has", "point_count"]] : ["all"],
+        paint: {
+          "circle-color": [
+            "match",
+            ["get", "script"],
+            "Tamil-Brahmi", "#f1c40f",
+            "Vatteluttu", "#e67e22",
+            "Grantha", "#9b59b6",
+            "Medieval Chola Tamil", "#2ecc71",
+            "#c5a059"
+          ],
+          "circle-radius": [
+            "case",
+            ["boolean", ["get", "is_selected"], false],
+            10,
+            7
+          ],
+          "circle-stroke-width": [
+            "case",
+            ["boolean", ["get", "is_selected"], false],
+            3,
+            1.8
+          ],
+          "circle-stroke-color": [
+            "case",
+            ["boolean", ["get", "is_selected"], false],
+            "#ffffff",
+            "#11151c"
+          ]
+        }
+      });
+    }
+
+    let listenersAttached = false;
+    function attachInteractiveListeners() {
+      if (listenersAttached || !map) return;
+      listenersAttached = true;
+
+      const tooltip = document.getElementById("district-tooltip");
+
+      // 1. Cluster Click -> Smooth expansion
+      map.on("click", "clusters", (e) => {
+        const features = map.queryRenderedFeatures(e.point, { layers: ["clusters"] });
+        if (!features.length) return;
+        const clusterId = features[0].properties.cluster_id;
+        map.getSource("inscriptions-source").getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) return;
+          map.easeTo({
+            center: features[0].geometry.coordinates,
+            zoom: zoom + 0.5,
+            duration: 650
+          });
+        });
+      });
+
+      // 2. Unclustered Point Click -> Rich Inscription Popup + Event Emit
+      map.on("click", "unclustered-point", (e) => {
+        if (!e.features.length) return;
+        const p = e.features[0].properties;
+        const coords = e.features[0].geometry.coordinates.slice();
+
+        // Ensure longitude wrap around
+        while (Math.abs(e.lngLat.lng - coords[0]) > 180) {
+          coords[0] += e.lngLat.lng > coords[0] ? 360 : -360;
+        }
+
+        let badgeClass = "badge-default";
+        if (p.script === "Tamil-Brahmi") badgeClass = "badge-brahmi";
+        else if (p.script === "Vatteluttu") badgeClass = "badge-vatteluttu";
+        else if (p.script === "Grantha") badgeClass = "badge-grantha";
+        else if (p.script && p.script.includes("Chola")) badgeClass = "badge-chola";
+
+        const popupHTML = `
+          <div class="popup-title">${p.title_en || "Ancient Inscription"}</div>
+          ${p.title_ta ? `<div class="popup-ta-title">${p.title_ta}</div>` : ""}
+          <span class="popup-badge ${badgeClass}">${p.script || "Ancient Script"}</span>
+          <div class="popup-meta">
+            <b>Site:</b> ${p.site || p.village || "Archaeological Locality"}<br>
+            <b>District:</b> ${p.district}, ${p.state}<br>
+            <b>Period / Dynasty:</b> ${p.period || "Historical"} ${p.dynasty ? `(${p.dynasty})` : ""}<br>
+            <b>Coordinates:</b> ${Number(coords[1]).toFixed(4)}° N, ${Number(coords[0]).toFixed(4)}° E
+          </div>
+          <button class="popup-btn" onclick="selectInscription('${p.inscription_id}', '${p.state}', '${p.district}')">
+            🏛️ Open Inscription Record
+          </button>
+        `;
+
+        if (activePopup) activePopup.remove();
+        activePopup = new maplibregl.Popup({ offset: 12 })
+          .setLngLat(coords)
+          .setHTML(popupHTML)
+          .addTo(map);
+
+        sendValue({
+          event_type: "marker_click",
+          inscription_id: p.inscription_id,
+          title_en: p.title_en,
+          state: p.state,
+          district: p.district,
+          coordinates: [coords[1], coords[0]],
+          timestamp: Date.now()
+        });
+      });
+
+      // 3. District Hover Tooltip & Click
+      map.on("mousemove", "districts-fill", (e) => {
+        if (!e.features.length) {
+          tooltip.style.display = "none";
+          return;
+        }
+        const feat = e.features[0];
+        const dName = feat.properties.district || feat.properties.dtname || feat.properties.district_name || "District";
+        const dCount = feat.properties.count || 0;
+        tooltip.innerHTML = `<b>${dName}</b><br><span style="color:#c5a15a;">${dCount} Inscription${dCount === 1 ? '' : 's'}</span>`;
+        tooltip.style.display = "block";
+        tooltip.style.left = `${e.point.x}px`;
+        tooltip.style.top = `${e.point.y}px`;
+        map.getCanvas().style.cursor = "pointer";
+      });
+
+      map.on("mouseleave", "districts-fill", () => {
+        tooltip.style.display = "none";
+        map.getCanvas().style.cursor = "";
+      });
+
+      map.on("click", "districts-fill", (e) => {
+        if (!e.features.length) return;
+        const feat = e.features[0];
+        const dName = feat.properties.district || feat.properties.dtname || feat.properties.district_name || "";
+        const sName = feat.properties.state || feat.properties.stname || feat.properties.state_name || "";
+
+        sendValue({
+          event_type: "district_select",
+          district: dName,
+          state: sName,
+          coordinates: [e.lngLat.lat, e.lngLat.lng],
+          timestamp: Date.now()
+        });
+      });
+
+      // 4. State Click
+      map.on("click", "states-fill", (e) => {
+        // If clicking a district, district event takes priority
+        const distFeatures = map.queryRenderedFeatures(e.point, { layers: ["districts-fill"] });
+        if (distFeatures.length > 0) return;
+
+        if (e.features && e.features.length) {
+          const sName = e.features[0].properties.state || e.features[0].properties.st_nm || "";
+          sendValue({
+            event_type: "state_select",
+            state: sName,
+            coordinates: [e.lngLat.lat, e.lngLat.lng],
+            timestamp: Date.now()
+          });
+        }
+      });
+
+      // 5. Blank Map Click -> Coordinate Picker
+      map.on("click", (e) => {
+        const markerFeats = map.queryRenderedFeatures(e.point, { layers: ["unclustered-point", "clusters"] });
+        if (markerFeats.length > 0) return;
+
+        sendValue({
+          event_type: "map_click",
+          coordinates: [Number(e.lngLat.lat.toFixed(6)), Number(e.lngLat.lng.toFixed(6))],
+          timestamp: Date.now()
+        });
+      });
+
+      // Mouse pointers on hoverable layers
+      ["clusters", "unclustered-point"].forEach(layer => {
+        map.on("mouseenter", layer, () => { map.getCanvas().style.cursor = "pointer"; });
+        map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; });
+      });
+    }
+
+    // Streamlit Message Listener
+    window.addEventListener("message", (event) => {
+      if (!event.data || event.data.type !== "streamlit:render") return;
+
+      const args = event.data.args || {};
+      latestArgs = args;
+
+      // Ensure appropriate frame height
+      const targetHeight = args.height || 620;
+      setFrameHeight(targetHeight);
+
+      const targetStyle = args.style || currentStyleKey;
+      const targetStyleUrl = OPENFREEMAP_STYLES[targetStyle] || OPENFREEMAP_STYLES.liberty;
+
+      if (!map) {
+        // First-time initialization
+        currentStyleKey = targetStyle;
+        const initialCenter = (args.view_state && args.view_state.center) ? args.view_state.center : [79.2, 21.8];
+        const initialZoom = (args.view_state && args.view_state.zoom) ? args.view_state.zoom : 4.15;
+
+        map = new maplibregl.Map({
+          container: "map",
+          style: targetStyleUrl,
+          center: initialCenter,
+          zoom: initialZoom,
+          minZoom: 3.5,
+          maxZoom: 18,
+          pitch: 0,
+          attributionControl: false // Custom attribution added cleanly in UI
+        });
+
+        // Built-in navigation and fullscreen controls
+        map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
+        map.addControl(new maplibregl.FullscreenControl(), "top-right");
+
+        map.on("load", () => {
+          setupDataSourcesAndLayers(args);
+        });
+      } else {
+        // Map ALREADY exists: Avoid reloading! Update data layers seamlessly
+        if (args.style && args.style !== currentStyleKey) {
+          switchMapStyle(args.style);
+        } else {
+          setupDataSourcesAndLayers(args);
+        }
+
+        // Camera flight to requested center if view state updated
+        if (args.view_state && args.view_state.center) {
+          map.flyTo({
+            center: args.view_state.center,
+            zoom: args.view_state.zoom || map.getZoom(),
+            duration: 800,
+            essential: true
+          });
+        }
+      }
+    });
+
+    // Notify Streamlit that the component is loaded and ready
+    window.parent.postMessage({
+      isStreamlitMessage: true,
+      type: "streamlit:componentReady",
+      apiVersion: 1
+    }, "*");
+  </script>
+</body>
+</html>
+

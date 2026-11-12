@@ -92,6 +92,25 @@ from services.ocr_fusion.ui_renderer import (
     render_evidence_heatmap_overlay,
 )
 
+# --- INDIA EPIGRAPHICAL GEOGRAPHIC ATLAS ---
+try:
+    from services.geo_atlas.models import GeoInscriptionRecord
+    from services.geo_atlas.ui_atlas import render_geographic_atlas_studio
+except ImportError:
+    import importlib
+    import sys
+    for mod_name in list(sys.modules.keys()):
+        if mod_name.startswith("services.geo_atlas") and sys.modules[mod_name]:
+            try:
+                importlib.reload(sys.modules[mod_name])
+            except Exception:
+                pass
+    from services.geo_atlas.models import GeoInscriptionRecord
+    from services.geo_atlas.ui_atlas import render_geographic_atlas_studio
+
+# --- HISTORICAL GLYPH DATASET STUDIO (PHASE 1) ---
+from services.research.glyph_annotation_ui import render_glyph_annotation_studio
+
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="Kallvettu — Archaeological Epigraphy & NLP Research Workbench",
@@ -536,6 +555,11 @@ def generate_epidoc_xml(result: dict) -> str:
 
 
 # --- SIDEBAR NAVIGATION ---
+if "_pending_nav_studio" in st.session_state:
+    pending_target = st.session_state.pop("_pending_nav_studio")
+    if pending_target:
+        st.session_state.nav_studio_selector = pending_target
+
 with st.sidebar:
     st.markdown("### 🏛️ KALLVETTU WORKBENCH")
     st.caption("Epigraphical Research & Computational Linguistics")
@@ -550,8 +574,13 @@ with st.sidebar:
             "📜 Translation Studio",
             "📖 Lexical Analysis",
             "📑 Research Dossier",
+            "🏷️ Glyph Annotation Studio",
+            "🗺️ India Epigraphical Geographic Atlas",
+            "📖 Classical Tamil Dictionary",
+            "🔬 Research Evaluation Studio",
             "⚙️ Settings"
         ],
+        key="nav_studio_selector",
         label_visibility="collapsed"
     )
 
@@ -1601,6 +1630,97 @@ elif nav_studio == "📑 Research Dossier":
         st.markdown("---")
         st.markdown("#### Dossier Preview")
         st.markdown(md_content)
+
+
+# ==============================================================================
+# STUDIO G2: INDIA EPIGRAPHICAL GEOGRAPHIC ATLAS
+# ==============================================================================
+elif nav_studio == "🗺️ India Epigraphical Geographic Atlas":
+    def _open_atlas_record_in_workbench(rec: GeoInscriptionRecord):
+        if rec.preset_id and find_preset_by_id(rec.preset_id):
+            load_preset_into_state(rec.preset_id)
+            if st.session_state.analysis_output is not None:
+                st.session_state.analysis_output["atlas_record_id"] = rec.inscription_id
+                st.session_state.analysis_output["atlas_provenance"] = {
+                    "state": rec.state,
+                    "district": rec.district,
+                    "archaeological_site": rec.archaeological_site,
+                    "location_precision": rec.location_precision,
+                    "publication_reference": rec.publication_reference,
+                }
+            st.session_state._pending_nav_studio = "🏛️ Inscription Studio"
+            st.rerun()
+            return
+
+        loaded_img = None
+        if rec.image_path:
+            abs_img = (
+                rec.image_path
+                if os.path.isabs(rec.image_path)
+                else os.path.abspath(os.path.join(os.path.dirname(__file__), rec.image_path))
+            )
+            project_root = os.path.abspath(os.path.dirname(__file__))
+            if abs_img.startswith(project_root) and os.path.isfile(abs_img):
+                loaded_img = Image.open(abs_img)
+
+        st.session_state.current_image = loaded_img
+        st.session_state.current_image_name = f"{rec.title_en} ({rec.inscription_id})"
+        st.session_state.preset_data = None
+        st.session_state.analysis_output = {
+            "id": rec.inscription_id,
+            "title_en": rec.title_en,
+            "title_ta": rec.title_ta,
+            "script_en": rec.script,
+            "era_en": rec.period,
+            "dynasty_en": rec.dynasty,
+            "location_en": " · ".join([x for x in [rec.archaeological_site, rec.district, rec.state] if x]),
+            "diplomatic_text": rec.transcription_preview,
+            "restored_text": rec.transcription_preview,
+            "english_translation": rec.translation_preview,
+            "provenance": f"Geographic Atlas Record ({rec.inscription_id})",
+            "data_source": rec.publication_reference or rec.collection_source,
+            "atlas_record_id": rec.inscription_id,
+        }
+        if loaded_img is not None:
+            st.session_state.source_identity = create_source_identity(
+                loaded_img,
+                filename=os.path.basename(rec.image_path),
+                provenance_mode=ProvenanceMode.UPLOADED_IMAGE,
+            )
+            st.session_state.restoration_results = process_full_restoration(
+                loaded_img,
+                contrast_boost=st.session_state.clahe_boost,
+                binarize_k=st.session_state.binarize_k,
+                squeeze_mode=st.session_state.squeeze_mode,
+                max_dim=st.session_state.max_image_dim,
+            )
+        st.session_state._pending_nav_studio = "🏛️ Inscription Studio"
+        st.rerun()
+
+    render_geographic_atlas_studio(on_open_in_workbench=_open_atlas_record_in_workbench)
+
+
+# ==============================================================================
+# STUDIO G3: HISTORICAL GLYPH ANNOTATION STUDIO (PHASE 1)
+# ==============================================================================
+elif nav_studio == "🏷️ Glyph Annotation Studio":
+    render_glyph_annotation_studio()
+
+
+# ==============================================================================
+# STUDIO G4: CLASSICAL TAMIL-ENGLISH DICTIONARY (PHASE 5)
+# ==============================================================================
+elif nav_studio == "📖 Classical Tamil Dictionary":
+    from services.nlp.dictionary_ui import render_classical_dictionary_studio
+    render_classical_dictionary_studio()
+
+
+# ==============================================================================
+# STUDIO G5: RESEARCH EVALUATION & CPU BENCHMARK STUDIO (PHASE 6)
+# ==============================================================================
+elif nav_studio == "🔬 Research Evaluation Studio":
+    from services.evaluation.benchmark_ui import render_research_benchmark_studio
+    render_research_benchmark_studio()
 
 
 # ==============================================================================

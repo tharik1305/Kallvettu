@@ -180,6 +180,7 @@ class MultiEngineOCRComparator:
         "sarvam_vision",
         "gemini_vision",
         "custom_historical_ocr",
+        "historical_hog_svm",
     ]
 
     def __init__(self, provider_manager: Optional[ProviderManager] = None):
@@ -224,8 +225,11 @@ class MultiEngineOCRComparator:
                 pname = getattr(prov, "provider_name", pid)
                 configured.append(pid)
                 img_for_prov = orig_img if ("sarvam" in str(pid).lower() and orig_img is not None) else image
+                call_kwargs = dict(kwargs)
+                if pid == "historical_hog_svm" and "mode" not in call_kwargs:
+                    call_kwargs["mode"] = "line"
                 try:
-                    res = prov.recognize(img_for_prov, script_hint=script_hint, **kwargs)
+                    res = prov.recognize(img_for_prov, script_hint=script_hint, **call_kwargs)
                     if isinstance(res, OCRResult) and res.text.strip():
                         active_results[pname] = res
                         executed.append(pid)
@@ -243,8 +247,11 @@ class MultiEngineOCRComparator:
                     continue
 
                 img_for_prov = orig_img if ("sarvam" in str(pid).lower() and orig_img is not None) else image
+                call_kwargs = dict(kwargs)
+                if pid == "historical_hog_svm" and "mode" not in call_kwargs:
+                    call_kwargs["mode"] = "line"
                 try:
-                    res = prov.recognize(img_for_prov, script_hint=script_hint, **kwargs)
+                    res = prov.recognize(img_for_prov, script_hint=script_hint, **call_kwargs)
                     if isinstance(res, OCRResult) and res.text.strip():
                         active_results[pid] = res
                         executed.append(pid)

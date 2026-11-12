@@ -58,8 +58,10 @@ from services.ocr_fusion.historical_validator import (
 )
 from services.ocr_fusion.adaptive_router import (
     AdaptiveRoutingEngine,
+    CPURoutingConfig,
     ImageQualityMetrics,
     RoutingExecutionReport,
+    apply_cpu_thread_limits,
 )
 from services.ocr_fusion.researcher_review import (
     ResearcherReviewManager,
