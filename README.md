@@ -89,11 +89,11 @@ Kallvettu provides a state-of-the-art multi-provider ecosystem combining soverei
                                                   │
                   ┌───────────────────────────────┼───────────────────────────────┐
                   ▼                               ▼                               ▼
-       ┌──────────────────────┐        ┌──────────────────────┐        ┌──────────────────────┐
-       │   Google Gemini AI   │        │   Sarvam Vision AI   │        │   PaddleOCR Local    │
+       ┌──────────────────────┐        ┌──────────────────────┐        ┌───────────────────────┐
+       │   Google Gemini AI   │        │   Sarvam Vision AI   │        │   PaddleOCR Local     │
        │  Multimodal Zero-Shot│        │  doc_ai.parse (3B)   │        │ ta_PP-OCRv5_mobile_rec│
-       └──────────┬───────────┘        └──────────┬───────────┘        │  PP-OCRv6 Detection  │
-                  │                               │                    └──────────┬───────────┘
+       └──────────┬───────────┘        └──────────┬───────────┘        │  PP-OCRv6 Detection   │
+                  │                               │                    └──────────┬────────────┘
                   └───────────────────────┬───────┴───────────────────────────────┘
                                           │
                                           ▼
