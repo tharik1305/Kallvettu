@@ -27,6 +27,19 @@ from services.ai.historical.line_recognizer import (
     HistoricalLineRecognizer,
 )
 
+from services.ai.historical.class_inventory import (
+    ScriptClassInventoryRegistry,
+    GraphemeDefinition,
+    TAMIL_BRAHMI_CLASSES,
+    CHOLA_TAMIL_CLASSES,
+    CONFUSABLE_PAIRS,
+)
+from services.ai.historical.evaluation_harness import (
+    HistoricalEvaluationHarness,
+    CERResult,
+    EvaluationReport,
+)
+
 __all__ = [
     "HOGConfig",
     "DEFAULT_HOG_CONFIG",
@@ -44,5 +57,13 @@ __all__ = [
     "LineSegment",
     "LineRecognitionResult",
     "HistoricalLineRecognizer",
+    "ScriptClassInventoryRegistry",
+    "GraphemeDefinition",
+    "TAMIL_BRAHMI_CLASSES",
+    "CHOLA_TAMIL_CLASSES",
+    "CONFUSABLE_PAIRS",
+    "HistoricalEvaluationHarness",
+    "CERResult",
+    "EvaluationReport",
 ]
 

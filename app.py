@@ -5,6 +5,8 @@ and translating ancient Tamil stone inscriptions (Tamil-Brahmi, Vatteluttu, Gran
 """
 
 import os
+import sys
+import importlib
 import json
 import io
 import time
@@ -110,6 +112,22 @@ except ImportError:
 
 # --- HISTORICAL GLYPH DATASET STUDIO (PHASE 1) ---
 from services.research.glyph_annotation_ui import render_glyph_annotation_studio
+
+# --- ADVANCED RESEARCH EXTENSIONS (PHASES G - L) ---
+for _mod in ["services.ui_studios", "services.iiif.viewer_component", "services.iiif"]:
+    if _mod in sys.modules and sys.modules[_mod]:
+        try:
+            importlib.reload(sys.modules[_mod])
+        except Exception:
+            pass
+
+from services.ui_studios import (
+    render_epigraphical_search_studio,
+    render_knowledge_graph_studio,
+    render_iiif_studio,
+    render_rti_studio,
+)
+from services.epidoc.bundle import EpiDocArchiveBundler
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -577,6 +595,10 @@ with st.sidebar:
             "🏷️ Glyph Annotation Studio",
             "🗺️ India Epigraphical Geographic Atlas",
             "📖 Classical Tamil Dictionary",
+            "🔍 Epigraphical Search Engine",
+            "🕸️ Historical Knowledge Graph",
+            "🔎 IIIF Deep-Zoom Inscription Viewer",
+            "💡 Photometric RTI & Relighting",
             "🔬 Research Evaluation Studio",
             "⚙️ Settings"
         ],
@@ -1597,14 +1619,18 @@ elif nav_studio == "📑 Research Dossier":
         render_epigraph_metadata_grid(output)
 
         # Download Buttons Toolbar
-        dossier_col1, dossier_col2, dossier_col3 = st.columns(3)
+        dossier_col1, dossier_col2, dossier_col3, dossier_col4 = st.columns(4)
         md_content = generate_markdown_report(output)
         json_content = json.dumps(output, ensure_ascii=False, indent=2)
         epidoc_content = generate_epidoc_xml(output)
+        try:
+            bundle_zip = EpiDocArchiveBundler.create_research_bundle_zip(inscription_id=output.get('id', 'export'), **output)
+        except Exception:
+            bundle_zip = b""
 
         with dossier_col1:
             st.download_button(
-                label="📥 Download Dossier (.MD)",
+                label="📥 Dossier (.MD)",
                 data=md_content,
                 file_name=sanitize_filename(f"kallvettu_dossier_{output.get('id', 'inscription')}.md"),
                 mime="text/markdown",
@@ -1612,7 +1638,7 @@ elif nav_studio == "📑 Research Dossier":
             )
         with dossier_col2:
             st.download_button(
-                label="📦 Export Structured Data (.JSON)",
+                label="📦 Structured Data (.JSON)",
                 data=json_content,
                 file_name=sanitize_filename(f"kallvettu_data_{output.get('id', 'inscription')}.json"),
                 mime="application/json",
@@ -1620,11 +1646,20 @@ elif nav_studio == "📑 Research Dossier":
             )
         with dossier_col3:
             st.download_button(
-                label="🏛️ Export EpiDoc / TEI XML (.XML)",
+                label="🏛️ EpiDoc XML (.XML)",
                 data=epidoc_content,
                 file_name=sanitize_filename(f"kallvettu_epidoc_{output.get('id', 'inscription')}.xml"),
                 mime="application/xml",
                 width="stretch"
+            )
+        with dossier_col4:
+            st.download_button(
+                label="📦 Research Archive (.ZIP)",
+                data=bundle_zip,
+                file_name=sanitize_filename(f"kallvettu_bundle_{output.get('id', 'inscription')}.zip"),
+                mime="application/zip",
+                width="stretch",
+                disabled=(len(bundle_zip) == 0)
             )
 
         st.markdown("---")
@@ -1721,6 +1756,44 @@ elif nav_studio == "📖 Classical Tamil Dictionary":
 elif nav_studio == "🔬 Research Evaluation Studio":
     from services.evaluation.benchmark_ui import render_research_benchmark_studio
     render_research_benchmark_studio()
+
+
+# ==============================================================================
+# STUDIO G6: HISTORICAL INSCRIPTION SEARCH ENGINE (PHASE H)
+# ==============================================================================
+elif nav_studio == "🔍 Epigraphical Search Engine":
+    import services.ui_studios
+    importlib.reload(services.ui_studios)
+    services.ui_studios.render_epigraphical_search_studio()
+
+
+# ==============================================================================
+# STUDIO G7: HISTORICAL KNOWLEDGE GRAPH (PHASE G)
+# ==============================================================================
+elif nav_studio == "🕸️ Historical Knowledge Graph":
+    import services.ui_studios
+    importlib.reload(services.ui_studios)
+    services.ui_studios.render_knowledge_graph_studio()
+
+
+# ==============================================================================
+# STUDIO G8: IIIF DEEP-ZOOM VIEWER (PHASE D)
+# ==============================================================================
+elif nav_studio == "🔎 IIIF Deep-Zoom Inscription Viewer":
+    import services.ui_studios
+    import services.iiif.viewer_component
+    importlib.reload(services.iiif.viewer_component)
+    importlib.reload(services.ui_studios)
+    services.ui_studios.render_iiif_studio()
+
+
+# ==============================================================================
+# STUDIO G9: PHOTOMETRIC RTI & RELIGHTING (PHASE J)
+# ==============================================================================
+elif nav_studio == "💡 Photometric RTI & Relighting":
+    import services.ui_studios
+    importlib.reload(services.ui_studios)
+    services.ui_studios.render_rti_studio()
 
 
 # ==============================================================================
