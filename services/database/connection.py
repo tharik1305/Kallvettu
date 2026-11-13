@@ -37,8 +37,14 @@ def get_database_url() -> str:
         if env_url.startswith("postgres://"):
             env_url = env_url.replace("postgres://", "postgresql://", 1)
         return env_url
-    os.makedirs(DEFAULT_DB_DIR, exist_ok=True)
-    return f"sqlite:///{DEFAULT_SQLITE_PATH}"
+    try:
+        os.makedirs(DEFAULT_DB_DIR, exist_ok=True)
+        return f"sqlite:///{DEFAULT_SQLITE_PATH}"
+    except (OSError, PermissionError):
+        import tempfile
+        tmp_path = os.path.join(tempfile.gettempdir(), "kallvettu_research.db")
+        return f"sqlite:///{tmp_path}"
+
 
 
 def get_engine() -> Engine:

@@ -114,20 +114,8 @@ except ImportError:
 from services.research.glyph_annotation_ui import render_glyph_annotation_studio
 
 # --- ADVANCED RESEARCH EXTENSIONS (PHASES G - L) ---
-for _mod in ["services.ui_studios", "services.iiif.viewer_component", "services.iiif"]:
-    if _mod in sys.modules and sys.modules[_mod]:
-        try:
-            importlib.reload(sys.modules[_mod])
-        except Exception:
-            pass
-
-from services.ui_studios import (
-    render_epigraphical_search_studio,
-    render_knowledge_graph_studio,
-    render_iiif_studio,
-    render_rti_studio,
-)
 from services.epidoc.bundle import EpiDocArchiveBundler
+
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -1762,38 +1750,55 @@ elif nav_studio == "🔬 Research Evaluation Studio":
 # STUDIO G6: HISTORICAL INSCRIPTION SEARCH ENGINE (PHASE H)
 # ==============================================================================
 elif nav_studio == "🔍 Epigraphical Search Engine":
-    import services.ui_studios
-    importlib.reload(services.ui_studios)
-    services.ui_studios.render_epigraphical_search_studio()
+    try:
+        import services.ui_studios
+        importlib.reload(services.ui_studios)
+        services.ui_studios.render_epigraphical_search_studio()
+    except Exception as e:
+        st.error(f"⚠️ Error loading Epigraphical Search Studio: {e}")
+        st.info("Ensure all requirements are installed: `pip install -r requirements.txt`")
 
 
 # ==============================================================================
 # STUDIO G7: HISTORICAL KNOWLEDGE GRAPH (PHASE G)
 # ==============================================================================
 elif nav_studio == "🕸️ Historical Knowledge Graph":
-    import services.ui_studios
-    importlib.reload(services.ui_studios)
-    services.ui_studios.render_knowledge_graph_studio()
+    try:
+        import services.ui_studios
+        importlib.reload(services.ui_studios)
+        services.ui_studios.render_knowledge_graph_studio()
+    except Exception as e:
+        st.error(f"⚠️ Error loading Knowledge Graph Studio: {e}")
+        st.info("Ensure all requirements are installed: `pip install -r requirements.txt`")
 
 
 # ==============================================================================
 # STUDIO G8: IIIF DEEP-ZOOM VIEWER (PHASE D)
 # ==============================================================================
 elif nav_studio == "🔎 IIIF Deep-Zoom Inscription Viewer":
-    import services.ui_studios
-    import services.iiif.viewer_component
-    importlib.reload(services.iiif.viewer_component)
-    importlib.reload(services.ui_studios)
-    services.ui_studios.render_iiif_studio()
+    try:
+        import services.ui_studios
+        import services.iiif.viewer_component
+        importlib.reload(services.iiif.viewer_component)
+        importlib.reload(services.ui_studios)
+        services.ui_studios.render_iiif_studio()
+    except Exception as e:
+        st.error(f"⚠️ Error loading IIIF Deep-Zoom Studio: {e}")
+        st.info("Ensure all requirements are installed: `pip install -r requirements.txt`")
 
 
 # ==============================================================================
 # STUDIO G9: PHOTOMETRIC RTI & RELIGHTING (PHASE J)
 # ==============================================================================
 elif nav_studio == "💡 Photometric RTI & Relighting":
-    import services.ui_studios
-    importlib.reload(services.ui_studios)
-    services.ui_studios.render_rti_studio()
+    try:
+        import services.ui_studios
+        importlib.reload(services.ui_studios)
+        services.ui_studios.render_rti_studio()
+    except Exception as e:
+        st.error(f"⚠️ Error loading Photometric RTI Studio: {e}")
+        st.info("Ensure all requirements are installed: `pip install -r requirements.txt`")
+
 
 
 # ==============================================================================

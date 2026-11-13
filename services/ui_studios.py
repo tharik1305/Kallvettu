@@ -21,12 +21,26 @@ import numpy as np
 import cv2
 from PIL import Image
 
-from services.database.connection import get_db_session
-from services.database.models import Inscription
-from services.database.repository import EpigraphicalRepository
-from services.search.search_engine import EpigraphicalSearchEngine, SearchResult
-from services.knowledge_graph.graph_engine import EpigraphicalKnowledgeGraph
-from services.knowledge_graph.graph_renderer import render_knowledge_graph_html
+try:
+    from services.database.connection import get_db_session
+    from services.database.models import Inscription
+    from services.database.repository import EpigraphicalRepository
+    from services.search.search_engine import EpigraphicalSearchEngine, SearchResult
+    HAS_DB = True
+    _DB_IMPORT_ERR = ""
+except ImportError as _e:
+    HAS_DB = False
+    _DB_IMPORT_ERR = str(_e)
+
+try:
+    from services.knowledge_graph.graph_engine import EpigraphicalKnowledgeGraph
+    from services.knowledge_graph.graph_renderer import render_knowledge_graph_html
+    HAS_GRAPH = True
+    _GRAPH_IMPORT_ERR = ""
+except ImportError as _e:
+    HAS_GRAPH = False
+    _GRAPH_IMPORT_ERR = str(_e)
+
 from services.iiif.viewer_component import render_openseadragon_viewer, image_to_base64_data_uri
 from services.iiif.manifest_builder import IIIFManifestBuilder
 from services.research_tools.rti_engine import RTIEngine
@@ -45,6 +59,11 @@ def _clean_html(raw_html: str) -> str:
 def render_epigraphical_search_studio() -> None:
     st.markdown("## 🔍 Historical Inscription Search Engine")
     st.caption("Multi-Criteria Corpus Search with Classical Tamil Morphological Variant Expansion")
+
+    if not HAS_DB:
+        st.error(f"⚠️ Search Engine requires database dependencies ({_DB_IMPORT_ERR}).")
+        st.info("Please install missing requirements: `pip install -r requirements.txt`")
+        return
 
     # Ensure database is seeded
     with get_db_session() as s:
@@ -212,6 +231,11 @@ def render_epigraphical_search_studio() -> None:
 def render_knowledge_graph_studio() -> None:
     st.markdown("## 🕸️ Historical Epigraphical Knowledge Graph")
     st.caption("Kings, Dynasties, Sacred Temples & Inscriptional Endowments (NetworkX & Vis.js)")
+
+    if not HAS_GRAPH:
+        st.error(f"⚠️ Knowledge Graph requires NetworkX dependencies ({_GRAPH_IMPORT_ERR}).")
+        st.info("Please install missing requirements: `pip install -r requirements.txt`")
+        return
 
     kg = EpigraphicalKnowledgeGraph()
     graph_dict = kg.to_dict()
