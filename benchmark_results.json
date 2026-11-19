@@ -3,112 +3,112 @@
     "phase": "Phase 1: Startup & Core Engine Initialization",
     "studio": "System Engine Core",
     "status": "PASS",
-    "latency_ms": 13237.303799993242,
+    "latency_ms": 7398.827199998777,
     "details": "All core modules, ML pipelines, and providers initialized successfully."
   },
   {
     "phase": "Phase 2: Dashboard Overview",
     "studio": "\ud83d\udcca Dashboard",
     "status": "PASS",
-    "latency_ms": 1087.9529000085313,
+    "latency_ms": 496.77019999944605,
     "details": "7 curated historical presets loaded. 9 AI providers detected."
   },
   {
     "phase": "Phase 3: Inscription Ingestion & Archival Preset",
     "studio": "\ud83c\udfdb\ufe0f Inscription Studio",
     "status": "PASS",
-    "latency_ms": 16.840000011143275,
+    "latency_ms": 5.56930000311695,
     "details": "Loaded 'Thanjavur Brihadisvara Temple Rajaraja Chola Inscription' (920x480px), script: Medieval Chola Tamil Script, dynasty: Imperial Chola Dynasty (Rajaraja Chola I)."
   },
   {
     "phase": "Phase 4: Digital Restoration Pipeline (CLAHE, Sauvola, Squeeze)",
     "studio": "\ud83d\udd2c Digital Restoration Studio",
     "status": "PASS",
-    "latency_ms": 1001.6307000041706,
+    "latency_ms": 530.266899993876,
     "details": "Generated all 7 visual restoration layers (Gray, CLAHE, Sauvola, Squeeze Rubbing, Chisel Grooves, Diff Map, Anomalies)."
   },
   {
     "phase": "Phase 5: K-IEFE Evidence Fusion & Disputed Zone Heatmap",
     "studio": "\u270d\ufe0f Transcription Studio",
     "status": "PASS",
-    "latency_ms": 354.970799991861,
+    "latency_ms": 197.34000001335517,
     "details": "Entropy: 0.000 bits. Agreement ratio: 78.8%. Adjudication validated."
   },
   {
     "phase": "Phase 6: Multi-Lingual Translation & Epigraphical Exegesis",
     "studio": "\ud83d\udcdc Translation Studio",
     "status": "PASS",
-    "latency_ms": 0.0048000074457377195,
+    "latency_ms": 0.0014999968698248267,
     "details": "Rendered Classical -> Contemporary Tamil (266 chars) and Scholarly English (307 chars)."
   },
   {
     "phase": "Phase 7: Morphological Decomposition & Sandhi Analysis",
     "studio": "\ud83d\udcd6 Lexical Analysis",
     "status": "PASS",
-    "latency_ms": 2.2123999951872975,
+    "latency_ms": 0.839599990285933,
     "details": "Analyzed 10 classical Tamil tokens with grammatical case and sandhi markers."
   },
   {
     "phase": "Phase 8: Research Dossier, TEI/EpiDoc XML & ZIP Archive",
     "studio": "\ud83d\udcd1 Research Dossier",
     "status": "PASS",
-    "latency_ms": 3861.9669000036083,
+    "latency_ms": 1074.6669999934966,
     "details": "Generated Markdown (5921 chars), TEI/EpiDoc XML (3259 chars), and ZIP archive (5678 bytes)."
   },
   {
     "phase": "Phase 9: Historical Glyph Annotation Studio",
     "studio": "\ud83c\udff7\ufe0f Glyph Annotation Studio",
     "status": "PASS",
-    "latency_ms": 9.685900004114956,
+    "latency_ms": 4.981300007784739,
     "details": "Initialized annotation workspace with 4 glyph category palettes."
   },
   {
     "phase": "Phase 10: India Epigraphical Geographic Atlas (GIS / MapLibre)",
     "studio": "\ud83d\uddfa\ufe0f India Epigraphical Geographic Atlas",
     "status": "PASS",
-    "latency_ms": 198.89600000169594,
+    "latency_ms": 265.36650001071393,
     "details": "Loaded 7 verified georeferenced inscriptions across districts; built PyDeck GIS layer."
   },
   {
     "phase": "Phase 11: Classical Tamil-English Lexicon & LRU Cache",
     "studio": "\ud83d\udcd6 Classical Tamil Dictionary",
     "status": "PASS",
-    "latency_ms": 30.428700003540143,
-    "details": "Searched 3 classical terms; warm lookup response: 0.0074 ms (sub-millisecond cache hits)."
+    "latency_ms": 35.335299995495006,
+    "details": "Searched 3 classical terms; warm lookup response: 0.0032 ms (sub-millisecond cache hits)."
   },
   {
     "phase": "Phase 12: Historical Corpus Epigraphical Search Engine",
     "studio": "\ud83d\udd0d Epigraphical Search Engine",
     "status": "PASS",
-    "latency_ms": 188.55289999919478,
+    "latency_ms": 332.26700000523124,
     "details": "Executed multi-criteria corpus query, returned 1 matching records."
   },
   {
     "phase": "Phase 13: Historical Knowledge Graph (29 Nodes, 69 Edges, Flag Canvas)",
     "studio": "\ud83d\udd78\ufe0f Historical Knowledge Graph",
     "status": "PASS",
-    "latency_ms": 467.4743000068702,
-    "details": "Canvas validated NOT blank. 29 entities, 69 verified relations. Base64 dynastic flags embedded. Warm serialization: 0.39 ms."
+    "latency_ms": 250.79689999984112,
+    "details": "Canvas validated NOT blank. 29 entities, 69 verified relations. Base64 dynastic flags embedded. Warm serialization: 0.11 ms."
   },
   {
     "phase": "Phase 14: IIIF Deep-Zoom Inscription Viewer (OpenSeadragon)",
     "studio": "\ud83d\udd0e IIIF Deep-Zoom Inscription Viewer",
     "status": "PASS",
-    "latency_ms": 29.203900005086325,
-    "details": "Generated IIIF Presentation v2/v3 Manifest and high-res data URI (252171 chars)."
+    "latency_ms": 11.035200004698709,
+    "details": "Generated IIIF Presentation v2/v3 Manifest and high-res data URI (219483 chars)."
   },
   {
     "phase": "Phase 15: Photometric RTI & Virtual Relighting Simulation",
     "studio": "\ud83d\udca1 Photometric RTI & Relighting",
     "status": "PASS",
-    "latency_ms": 34.860700005083345,
+    "latency_ms": 22.089399994001724,
     "details": "Computed 3D surface normal map, simulated virtual light source at azimuth=45\u00b0, elevation=35\u00b0, and colored normal map."
   },
   {
     "phase": "Phase 16: Research Evaluation Studio & Workbench Settings",
     "studio": "\ud83d\udd2c Evaluation & \u2699\ufe0f Settings",
     "status": "PASS",
-    "latency_ms": 0.39939999987836927,
+    "latency_ms": 0.8068000024650246,
     "details": "Evaluated CER/WER epigraphical accuracy metrics (CER=0.0 on identical pair); verified masked API configurations."
   }
 ]

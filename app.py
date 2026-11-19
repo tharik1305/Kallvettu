@@ -97,6 +97,10 @@ from services.ocr_fusion.ui_renderer import (
     render_evidence_heatmap_overlay,
     render_epigraphical_evidence_integrity_monitor,
 )
+from services.iiif.viewer_component import (
+    render_openseadragon_viewer,
+    get_cached_squeeze_rubbing,
+)
 
 
 # --- PAGE CONFIGURATION ---
@@ -1070,21 +1074,54 @@ elif nav_studio == "🔬 Digital Restoration Studio":
 
         # Before & After Master Display
         st.markdown("#### 1. Archival Epigraphical Comparison: Before & After")
-        c_orig, c_squeeze = st.columns(2)
-        with c_orig:
-            st.markdown("**ORIGINAL WEATHERED STONE SLAB**")
-            render_safe_image(
-                res.get("original") or (res.get("saved_paths", {}).get("original")),
-                fallback=res.get("original_pristine"),
-                error_label="Original stone photograph unavailable",
+        orig_master = (
+            res.get("original")
+            or (res.get("saved_paths", {}).get("original"))
+            or res.get("original_pristine")
+            or st.session_state.current_image
+        )
+        squeeze_master = res.get("squeeze") or (res.get("saved_paths", {}).get("squeeze"))
+        if squeeze_master is None and orig_master is not None:
+            squeeze_master, _ = get_cached_squeeze_rubbing(
+                orig_master,
+                clip_limit=float(st.session_state.clahe_boost),
+                max_dim=1600,
             )
-        with c_squeeze:
-            st.markdown("**DIGITALLY RESTORED ARCHIVAL SQUEEZE SIMULATION (மை படி)**")
-            render_safe_image(
-                res.get("squeeze") or (res.get("saved_paths", {}).get("squeeze")),
-                fallback=res.get("grooves"),
-                error_label="Archival squeeze simulation unavailable",
+
+        sample_name = st.session_state.get("selected_sample_name") or "Mangulam Tamil-Brahmi Inscription"
+        primary_title = f"Original {sample_name}"
+        comp_title = "Lithic Squeeze Rubbing (Inverted Relief)"
+
+        view_tab_deepzoom, view_tab_static = st.tabs([
+            "🔬 Interactive Synchronized Dual Deep-Zoom Viewer",
+            "🖼️ Archival Before & After Static Plates",
+        ])
+
+        with view_tab_deepzoom:
+            render_openseadragon_viewer(
+                primary_image=orig_master,
+                comparison_image=squeeze_master,
+                viewer_height=580,
+                primary_label=primary_title,
+                comparison_label=comp_title,
             )
+
+        with view_tab_static:
+            c_orig, c_squeeze = st.columns(2)
+            with c_orig:
+                st.markdown("**ORIGINAL WEATHERED STONE SLAB**")
+                render_safe_image(
+                    orig_master,
+                    fallback=res.get("original_pristine"),
+                    error_label="Original stone photograph unavailable",
+                )
+            with c_squeeze:
+                st.markdown("**DIGITALLY RESTORED ARCHIVAL SQUEEZE SIMULATION (மை படி)**")
+                render_safe_image(
+                    squeeze_master,
+                    fallback=res.get("grooves"),
+                    error_label="Archival squeeze simulation unavailable",
+                )
 
         st.markdown("---")
 

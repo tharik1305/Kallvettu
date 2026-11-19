@@ -18,6 +18,8 @@ from services.iiif.coordinate_mapper import (
 from services.iiif.viewer_component import (
     render_openseadragon_viewer,
     image_to_base64_data_uri,
+    compute_image_sha256,
+    get_cached_squeeze_rubbing,
 )
 
 __all__ = [
@@ -32,4 +34,6 @@ __all__ = [
     "build_deep_link_url",
     "render_openseadragon_viewer",
     "image_to_base64_data_uri",
+    "compute_image_sha256",
+    "get_cached_squeeze_rubbing",
 ]

@@ -47,6 +47,7 @@ from services.iiif.viewer_component import (
     render_openseadragon_viewer,
     image_to_base64_data_uri,
     get_image_dimensions,
+    get_cached_squeeze_rubbing,
 )
 from services.iiif.manifest_builder import (
     IIIFManifestBuilder,
@@ -466,18 +467,18 @@ def render_iiif_studio() -> None:
             image_dimensions=(w, h),
         )
     else:
-        # Create Inked Squeeze Rubbing / Contrast Plate
-        # Invert luminance & CLAHE to expose carved grooved edges
-        arr_rgb = np.array(master_pil.convert("RGB"))
-        gray = cv2.cvtColor(arr_rgb, cv2.COLOR_RGB2GRAY)
-        inverted = cv2.bitwise_not(gray)
-        clahe_engine = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
-        squeeze_arr = clahe_engine.apply(inverted)
-        squeeze_pil = Image.fromarray(cv2.cvtColor(squeeze_arr, cv2.COLOR_GRAY2RGB))
+        # Create Inked Squeeze Rubbing / Contrast Plate using cached, CPU-efficient OpenCV pipeline
+        squeeze_pil, squeeze_uri = get_cached_squeeze_rubbing(
+            master_pil,
+            clip_limit=3.0,
+            tile_grid=(8, 8),
+            max_dim=1600,
+            algo_version="2.1.0-squeeze-relief"
+        )
 
         render_openseadragon_viewer(
             primary_image=master_pil,
-            comparison_image=squeeze_pil,
+            comparison_image=squeeze_uri if squeeze_uri else squeeze_pil,
             viewer_height=600,
             primary_label=f"{title_en} — Master Photograph",
             comparison_label="Lithic Squeeze Rubbing (Inverted Relief)",
